@@ -1,6 +1,6 @@
 Joe Campbell
 2/17/16
-README
+README.md
 
 1.  All elements of this program have been correctly implemented as
     verified by the sites given in the spec.
