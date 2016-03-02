@@ -14,7 +14,21 @@
 <div id="lyrics"></div>
 
 <script>
-	// Complete this section and create a CSS file named style.css
+	var lyrics = document.getElementById('lyrics');
+	var video = document.getElementsByTagName('video')[0];
+
+	var interval = setInterval(curr_time, 100);
+	function curr_time() {
+		if (Math.floor(video.currentTime) >= 3) {
+			lyrics.innerHTML = "Hello";
+		}
+		if (Math.floor(video.currentTime) >= 7) {
+			lyrics.innerHTML = "Hello there";
+		}
+	}
+	video.addEventListener("play", curr_time, false);
+	
+
 </script>
 </body>
 </html>	
