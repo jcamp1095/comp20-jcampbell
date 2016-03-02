@@ -7,3 +7,10 @@ video {
 	margin-right: auto;
 	display: block;
 }
+
+#lyrics {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	text-align: center;
+}
