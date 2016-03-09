@@ -1,1 +1,17 @@
-/* Your CSS here... */
+#messages {
+    text-align: left;
+    border: 1px solid #000;
+    height: 100px;
+    padding: 10px 5px;
+    display: inline-block;
+}
+
+
+h1 {
+        text-align: left;
+
+}
+
+body {
+        background-color: #5F9EA0;
+}

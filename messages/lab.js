@@ -8,8 +8,8 @@ request.onreadystatechange = function() {
                 raw = request.responseText;
                 data = JSON.parse(raw);
                 elem = document.getElementById("messages");
-                for (i = 0; i < data["id"].length; i++) {
-                        message += "<p>" + data[i]["content"] + data[i]["username"] + "</p>";
+                for (i = 0; i < data.length; i++) {
+                        message += "<p>" + data[i]["content"] + " " + data[i]["username"] + "</p>";
                 }
                 elem.innerHTML = message;
         } else if (request.readyState == 4 && request.status != 200) {
