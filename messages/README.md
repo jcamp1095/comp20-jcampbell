@@ -15,4 +15,9 @@ Question: is it possible to request the data from a different origin (e.g., http
 No it is not possible.  When trying the access the data from the file:// (by clicking on the 
 index.html file) no data was visible on the page.  When trying to access the data from the 
 site, the message "Failed to load data" came up which is the error message implemented in 
-lab.js if request.status does not equal 200.
+lab.js if request.status does not equal 200.  This is due to the same origin policy.  Only 
+pages with the same protocol, port, and host have the same origin policy.  In this case, 
+when trying to access or read the data through one of the other methods, the same origin policy 
+does not hold true.  The same origin policy exists such that other sites on the web cannot
+access data you do not want them to access. It also allows certain sites to access data
+if given the correct permission.  
