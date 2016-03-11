@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+        <head>
+                <title>Historic Landmarks</title>
+                <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+                <link rel="stylesheet" href="style.css" />
+                
+                <script>
+                        var myLat = 0;
+                        var myLng = 0;
+                        var request = new XMLHttpRequest();
+                        //var data_request = new XMLHttpRequest();
+                        var my_loc = new google.maps.LatLng(myLat, myLng);
+                        var myOptions = {
+                                                zoom: 14, // The larger the zoom number, the bigger the zoom
+                                                center: my_loc,
+                                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                                        };
+                        var map;
+                        var marker;
+                        var infowindow = new google.maps.InfoWindow(); 
+                        
+                        function init()
+                        {
+                                map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                                getMyLocation();
+                        }
+                        
+                        function getMyLocation() {
+                                if (navigator.geolocation) { 
+                                        navigator.geolocation.getCurrentPosition(function(position) {
+                                                myLat = position.coords.latitude;
+                                                myLng = position.coords.longitude;
+                                                var data_request = new XMLHttpRequest();
+                                                data_request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
+                                                data_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                                data_request.send("login=RAUL_SUAREZ&lat=" + myLat + "&lng=" + myLng);
+                                                console.log("My location is: Lat: " + myLat + " Long: " + myLng);
+                                                //renderMap();
+                                                
+                                                data_request.onload = function () {
+                                                        if (data_request.readyState == 4 && data_request.status == 200) {
+                                                                raw = data_request.responseText;
+                                                                data = JSON.parse(raw);
+                                                                console.log(data);
+                                                        } else if (data_request.readyState == 4 && data_request.status != 200) {
+                                                                document.getElementById("messages").innerHTML = "<p> Failed to load data</p>";
+                                                        }
+                                                };
+                                        });
+                                } else {
+                                        alert("Geolocation is not supported by your web browser.");
+                                }
+                        }
+
+                        function renderMap()
+                        {
+                                my_loc = new google.maps.LatLng(myLat, myLng);
+                                map.panTo(my_loc);
+                                marker = new google.maps.Marker({
+                                        position: my_loc,
+                                        title: "My Location"
+                                });
+                                marker.setMap(map);
+                                        
+                                // Open info window on click of marker
+                                google.maps.event.addListener(marker, 'click', function() {
+                                        infowindow.setContent(marker.title);
+                                        infowindow.open(map, marker);
+                                });
+                        }
+
+                        //function get_student_location()
+                        ///{       
+                                /*data_request.onload = function () {
+                                        if (data_request.readyState == 4 && data_request.status == 200) {
+                                                raw = data_request.responseText;
+                                                data = JSON.parse(raw);
+                                                console.log(data);
+                                                /*elem = document.getElementById("print_data");
+                                                
+                                                for (i = 0; i < data.length; i++) {
+                                                        console.log("HELLO");
+                                                }
+                                                //elem.innerHTML = "HELLO";
+                                        } else if (data_request.readyState == 4 && data_request.status != 200) {
+                                                document.getElementById("messages").innerHTML = "<p> Failed to load data</p>";
+                                        }
+                                };*/
+                      //  }
+
+                </script>
+        </head>
+        
+        <body onload="init()">
+                <div id="map_canvas"></div>
+                <div id="print_data"></div>
+        </body>
+</html>
