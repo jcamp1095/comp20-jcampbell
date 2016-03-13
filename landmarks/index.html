@@ -23,10 +23,10 @@
                         function init()
                         {
                                 map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-                                getMyLocation();
+                                getLocations();
                         }
                         
-                        function getMyLocation() {
+                        function getLocations() {
                                 if (navigator.geolocation) { 
                                         navigator.geolocation.getCurrentPosition(function(position) {
                                                 myLat = position.coords.latitude;
@@ -40,13 +40,13 @@
                                                         if (data_request.readyState == 4 && data_request.status == 200) {
                                                                 raw = data_request.responseText;
                                                                 data = JSON.parse(raw);
-                                                                setMyMarker(data['landmarks']);
                                                                  for (i = 0; i < data['people'].length; i++) {
                                                                         setPersonMarker(data['people'][i]);
                                                                  }
                                                                  for (i = 0; i < data['landmarks'].length; i++) {
                                                                         setLandmarkMarker(data['landmarks'][i]);
                                                                  }
+                                                                 setMyMarker(data['landmarks']); 
                                                         } else if (data_request.readyState == 4 && data_request.status != 200) {
                                                                 document.getElementById("messages").innerHTML = "<p> Failed to load data</p>";
                                                         }
@@ -78,6 +78,7 @@
                                 var nearest_mark = get_closest(object);
                                 lat2 = nearest_mark['geometry']['coordinates'][1];
                                 lng2 = nearest_mark['geometry']['coordinates'][0];
+                                dist = getDistance(myLat, myLng, lat2, lng2);
 
                                 var coordinates = [
                                         {lat: myLat, lng: myLng},
