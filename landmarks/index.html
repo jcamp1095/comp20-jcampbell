@@ -40,13 +40,17 @@
                                                         if (data_request.readyState == 4 && data_request.status == 200) {
                                                                 raw = data_request.responseText;
                                                                 data = JSON.parse(raw);
-                                                                 for (i = 0; i < data['people'].length; i++) {
-                                                                        setPersonMarker(data['people'][i]);
+                                                                 for (i = 0; i < data['people'].length; i++)
+                                                                 {
+                                                                        if (data['people'][i].login != "RAUL_SUAREZ") {
+                                                                                setPersonMarker(data['people'][i]);
+                                                                        }
                                                                  }
                                                                  for (i = 0; i < data['landmarks'].length; i++) {
                                                                         setLandmarkMarker(data['landmarks'][i]);
                                                                  }
                                                                  setMyMarker(data['landmarks']); 
+                                                                 console.log(data);
                                                         } else if (data_request.readyState == 4 && data_request.status != 200) {
                                                                 document.getElementById("messages").innerHTML = "<p> Failed to load data</p>";
                                                         }
@@ -97,7 +101,7 @@
 
                                 // Open info window on click of marker
                                 google.maps.event.addListener(marker, 'click', function() {
-                                        infowindow.setContent("<p>Closest Landmark: " + nearest_mark['properties']['Location_Name']
+                                        infowindow.setContent("<p>Login: " + "RAUL_SUAREZ" + "</p>" + "<p>Closest Landmark: " + nearest_mark['properties']['Location_Name']
                                          + "</p>" +  "<p>" + "Distance: " + dist + " miles" + "</p>");
                                         infowindow.open(map, marker);
                                 });
@@ -192,6 +196,5 @@
         
         <body onload="init()">
                 <div id="map_canvas"></div>
-                <div id="print_data"></div>
         </body>
 </html>
