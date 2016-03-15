@@ -50,7 +50,6 @@
                                                                         setLandmarkMarker(data['landmarks'][i]);
                                                                  }
                                                                  setMyMarker(data['landmarks']); 
-                                                                 console.log(data);
                                                         } else if (data_request.readyState == 4 && data_request.status != 200) {
                                                                 document.getElementById("messages").innerHTML = "<p> Failed to load data</p>";
                                                         }
