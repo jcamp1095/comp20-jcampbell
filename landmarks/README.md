@@ -2,7 +2,9 @@ Joe Campbell 3/14/16 README.md
 
 All elements of this program have been correctly implemented as verified by the sites given in the spec.
 
-This project was made by me, Joe Campbell.
+This project was made by me, Joe Campbell.  The getDistance function was obtained from 
+stackoverflow at this url: http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript.
+Some of the structure relating to the google maps api was based on code written my Ming Chow.  
 
 I aproximately spent 4 hours on this assignment.
 

@@ -13,7 +13,7 @@
                         var request = new XMLHttpRequest();
                         var my_loc = new google.maps.LatLng(myLat, myLng);
                         var myOptions = {
-                                                zoom: 14, // The larger the zoom number, the bigger the zoom
+                                                zoom: 14, 
                                                 center: my_loc,
                                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                                         };
@@ -98,7 +98,6 @@
 
                                 path.setMap(map);
 
-                                // Open info window on click of marker
                                 google.maps.event.addListener(marker, 'click', function() {
                                         infowindow.setContent("<p>Login: " + "RAUL_SUAREZ" + "</p>" + "<p>Closest Landmark: " + nearest_mark['properties']['Location_Name']
                                          + "</p>" +  "<p>" + "Distance: " + dist + " miles" + "</p>");
@@ -139,7 +138,6 @@
                                         title: object.login
                                 });
                                         
-                                // Open info window on click of marker
                                 google.maps.event.addListener(marker, 'click', function() {
                                         infowindow.setContent(object['properties']['Details']);
                                         infowindow.open(map, marker);
@@ -163,7 +161,6 @@
                                 return closest;
                         }
 
-                        //put in citation
                         function getDistance(my_lat, my_lng, lat_2, lng_2)
                         {
                                 Number.prototype.toRad = function() {
@@ -176,7 +173,6 @@
                                 var lon1 = my_lng;
 
                                 var R = 6371; // km 
-                                //has a problem with the .toRad() method below.
                                 var x1 = lat2-lat1;
                                 var dLat = x1.toRad();  
                                 var x2 = lon2-lon1;
