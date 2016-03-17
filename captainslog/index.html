@@ -20,15 +20,20 @@
                 {
                         var today = new Date();
                         day_month = today.getDate();
+                        if (day_month.length == 1) daymonth = "0" + day_month;
                         month = today.getMonth();
                         day_week = today.getDay();
                         year = today.getFullYear();
                         hour = today.getHours();
+                        if (hour < 10) hour = "0" + hour;
                         minutes = today.getMinutes();
+                        if (minutes < 10) minutes = "0" + minutes;
                         seconds = today.getSeconds();
+                        if (seconds < 10) seconds = "0" + seconds;
                         time = get_day(day_week) + " " + get_month(month) + " " + day_month + " " + hour + ":" + minutes + ":" + seconds + " " + year + " - ";
                         return time;
                 }
+
                 function get_day(num) 
                 {
                         if (num == 0) {
