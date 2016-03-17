@@ -6,80 +6,18 @@
         <title>Captain's Log</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script>
-                
                 $(document).ready(function(){
+                        $("#log").html(localStorage.html);
                         $('#msg').change(function() {
-                                        real_time = get_time_stamp();
-                                        $('#log').prepend(time + $(this).val() + "<p></p>");
+                                        var real_time = new Date();
+                                        $('#log').prepend(real_time + " - " + $(this).val() + "<p></p>");
                                         $('#msg').val('');
+
+                                        localStorage.html = $("#log").html();
                         });
+
                 });
-
-                function get_time_stamp()
-                {
-                        var today = new Date();
-                        day_month = today.getDate();
-                        if (day_month.length == 1) daymonth = "0" + day_month;
-                        month = today.getMonth();
-                        day_week = today.getDay();
-                        year = today.getFullYear();
-                        hour = today.getHours();
-                        if (hour < 10) hour = "0" + hour;
-                        minutes = today.getMinutes();
-                        if (minutes < 10) minutes = "0" + minutes;
-                        seconds = today.getSeconds();
-                        if (seconds < 10) seconds = "0" + seconds;
-                        time = get_day(day_week) + " " + get_month(month) + " " + day_month + " " + hour + ":" + minutes + ":" + seconds + " " + year + " - ";
-                        return time;
-                }
-
-                function get_day(num) 
-                {
-                        if (num == 0) {
-                                return "Sun";
-                        } else if (num == 1) {
-                                return "Mon";
-                        } else if (num == 2) {
-                                return "Tues";
-                        } else if (num == 3) {
-                                return "Wed";
-                        } else if (num == 4) {
-                                return "Thurs";
-                        } else if (num == 5) {
-                                return "Fri";
-                        } else {
-                                return "Sat";
-                        }
-                }  
-
-                function get_month(num) 
-                {
-                        if (num == 0) {
-                                return "Jan";
-                        } else if (num == 1) {
-                                return "Feb";
-                        } else if (num == 2) {
-                                return "Mar";
-                        } else if (num == 3) {
-                                return "Apr";
-                        } else if (num == 4) {
-                                return "May";
-                        } else if (num == 5) {
-                                return "Jun";
-                        } else if (num == 6) {
-                                return "Jul";
-                        } else if (num == 7) {
-                                return "Aug";
-                        } else if (num == 8) {
-                                return "Sept";
-                        } else if (num == 9) {
-                                return "Oct";
-                        } else if (num == 10) {
-                                return "Nov";
-                        } else {
-                                return "Dec";
-                        }
-                }        
+       
         </script>
 </head>
 

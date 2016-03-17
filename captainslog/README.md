@@ -2,7 +2,7 @@ Joe Campbell 3/17/16 README.md
 
 All elements of this program have been correctly implemented as verified by the sites given in the spec.
 
-This project was made by me, Joe Campbell.
+This project was made by me, Joe Campbell.  I discussed aspects of the local store with Michael Morisi.
 
 I aproximately spent 2 hours on this assignment.
 
