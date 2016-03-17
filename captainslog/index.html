@@ -9,7 +9,7 @@
                 var today = new Date();
                 var unixTimestamp = Date.now();
                 $(document).keypress(function(k) {
-                        $('#msg').keyup(function() {
+                        $('#msg').change(function() {
                                 if (k.which == 13) {
                                         $('#log').prepend("<p>" + $(this).val() + "</p>");
                                         $('#msg').val('');
