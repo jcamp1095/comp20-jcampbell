@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Assignment</title>
+    <link rel="stylesheet" type="text/css" href="style.css"></link>
+</head>
+<body>
+<h1>Security Assessment of Landmarks</h1>
+
+<p>Joe Campbell</p>
+<p>4/26/2016</p>
+
+<h2>Introduction</h2>
+
+<p>This assignment tests the security of the Landmark assignments 2 and 3 web application made by Michele Mei <a href="https://blueberry-cake-97411.herokuapp.com/"> link </a>. The landmark webapp will take data from each user that checks in to the /sendLocation POST api - the login, lat, and lng - and will then return as data the list of landmarks and people in the database.  In addition, the app provides a webpage to see all the people who have signed into the webapp as well as a page to view only a certain user by login using a query string. However, the security of this webapp falls short of what is needed to make this available for public use. This document identifies those vulnerabilities and suggests solutions for them.</p>
+
+
+<h2>Methodology</h2>
+
+<p>The testing was done at first using the "black box" method to determine the vunerabilities using just the interface provided by the website, similar to what someone trying to hack the site might have.  Additionally, tools such as curl were used to attempt to inject code into the database that should not be there.  Also the source code for the nodejs file was examined to determine any coding flaws which would lead to problems relating to security.</p>
+
+<h2>Abstract of Findings</h2>
+
+<p>Overall, this web application is not ready for public use as it contains multiple security flaws (detailed below) which would impead it from being a using application.  Security flaws happen when not enough controls are set in the application to prevent other people from tampering with data (eiter on purpose or by accident).  This app operates under the assumption that the user will only enter the correct and expected data every time - which is certainly not going to be the case.  This could also impead other oganizations that might want to use the data from the checkins in some way.  If that data is not uniform, security risks are also possible for that user.  </p>
+
+<h2>Issues Found</h2>
+
+<ol>
+<li><p><strong>Cross Site Scripting and HTML Content Injection</strong></p>
+
+<ul>
+<li>Affects GET '/' API</li>
+<li>Severity: High -  this issue allows someone to inject data into the database of entries such that the data displayed is corrupt.  This is so bad because if other people are relying on this data is will not be correct or could have any number of injections to get personal information, crash a computer, etc. </li>
+<li>This issue was found by the data submitted via the POST API.  An image html code was used as the login information as shown below:
+<p></p>
+<tr><td><img src="img/img1.png" alt="code to inject bad data" title="Code to Insert Dog picture as login" /></td>
+This results in a picture of a dog being displayed on the webpage instead of a login.
+
+</li>
+<li>This can be fixed by replacing bad user input (ie anything with a '<' or other non text character with a blank space.  This can be done with very simple code such as this: data = data.replace(/[^\w\s]/gi, '');.  This code replaces any data with a symbol deemed to be corrupt with a blank space. 
+</ul></li>
+
+<li><p><strong>CORS always enabled</strong></p>
+
+<ul>
+<li>Affects POST API</li>
+<li>Severity: Medium/High -  this issue allows anyone to make a server request via the sendLocation POST api.  </li>
+<li>This issue was found within the source code for this web app.  The problem is that the '*' character is used 
+    as shown below in enabling CORS.  This means that anyone can make a request to the server.  This is bad for several reasons because hackers or anyone either by accident or on purpose can access the servers directly and change the data.  
+<p></p>
+<tr><td><img src="img/img4.png" alt="cors always enabled" title="CORS always enabled" /></td>
+
+</li>
+<li>This can be fixed by only enabling CORS for certain people as opposed to everyone.   
+</ul></li>
+
+<li><p><strong>Bad Programming Practice / Bad user input</strong></p>
+
+<ul>
+<li>Affects GET '/checkins.json' API</li>
+<li>Severity: medium -  There is no statement to check that the input to the database to find a person by a login is valid.  It takes the input from the user and directly uses that value to query the database.  This is a medium serverity issue because it still works without it; however, it runs the risk of sending potentially bad data to the server unnecessarily.  The other big issue here is that the information returned from the Query contains LOTS of personal inofmation and is publically available to anyone.</li>
+<li>This issue was found by looking through the source code for the /checkins.json API.  The code to query the database based on user intput to find a person is below: 
+<p></p>
+<tr><td><img src="img/img2.png" alt="code to query login" title="Code to Query Login" /></td>
+While this code works, the lack of prior error checking might lead to problems.  
+
+</li>
+<li>This can be fixed by simpling adding in an if statement after getting the data from the response but before using that data to query the database.  That code might looking something like pictured below:
+<p></p>
+<tr><td><img src="img/img3.png" alt="code to query login" title="Code to Query Login" /></td>
+</ul></li>
+
+
+</ol>
+
+<h2>Conclusion</h2>
+
+<p>The above issues are certainly important enough such that the web application should not be public until the security flaws are fixed.  The good news is that these issues are not very hard to fix and just those simple fixes should vastly increase the security of the web application.  Another issue that should be addressed is the fact that people can post any information to the server, there is no platform in place to ensure any sort of correct or viable data (even if it is in the correct format).  Therefore the web app would need some sort of tool to verify the data entered is feasible.  The total cost for this would be close to $500.  </p>
+</body>
+</html>
